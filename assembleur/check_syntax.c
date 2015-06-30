@@ -35,8 +35,8 @@ int			check_syntax(t_line *lst)
 				else if (ret == 1)
 					l_curr = l_curr->next;
 			}
-			else if (t_curr->type == instruction)
-				if (check_instruction(t_curr) < 0)
+			else if (t_curr->type == instruction &&\
+					check_instruction(t_curr) < 0)
 					return (-1);
 		}
 		l_curr = l_curr->next;
@@ -90,7 +90,7 @@ int			check_arg(t_token *t_curr, t_op op)
 		t_curr = t_curr->next;
 	}
 	nb_args = 0;
-	while (nb_args < op.nb_params)
+	while (op.param_types[nb_args])
 	{
 		if (args_types[nb_args] == direct_label)
 			args_types[nb_args] = T_DIR;
