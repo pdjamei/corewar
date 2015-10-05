@@ -48,9 +48,11 @@ $(NAME): $(LIB) $(OBJ)
 	gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LDFLAGS)
 
 clean:
+	make -C ../libft clean
 	rm -rf $(OBJ)
 
 fclean:		clean
+	make -C ../libft fclean
 	rm -rf $(NAME)
 
 re: fclean all
