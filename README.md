@@ -1,4 +1,0 @@
-corewar
-=======
-
-This is sparta

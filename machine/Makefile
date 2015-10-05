@@ -16,6 +16,7 @@ LDFLAGS =	-L ../libft -lft
 INCL =		-I ../includes
 LIB =		libft.a
 SRC =   	battle.c\
+			dump.c\
 			champ_create.c\
 			champ_number.c\
 			charge_arena.c\

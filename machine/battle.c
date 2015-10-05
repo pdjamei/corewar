@@ -91,7 +91,7 @@ void			launch_battle(int nbr_cycle, unsigned char *arena,
 {
 	t_champdata	*tmp;
 
-	while (cycle->cycle_to_die > 0 && check_round(champ, cycle))
+	while (cycle->cycle_to_die > 0 && check_round(champ, cycle) && nbr_cycle != 0)
 	{
 		tmp = champ->next;
 		while (tmp != champ)
@@ -105,13 +105,17 @@ void			launch_battle(int nbr_cycle, unsigned char *arena,
 				cycle->nbr_live = 0;
 			}
 		}
-		if (nbr_cycle == cycle->current_cycle)
-			ft_putstr("Fonction -dump yet have to be made.\n");
+		nbr_cycle--;
 		cycle->current_cycle = cycle->current_cycle + 1;
 	}
-	ft_putstr("Winner is : ");
-	ft_putstr(g_winner_name);
-	ft_putstr(" (player ");
-	ft_putnbr(g_winner_id);
-	ft_putstr(")\n");
+	if (nbr_cycle == 0)
+		ft_dump(arena, champ, cycle);
+	else
+	{
+		ft_putstr("Winner is : ");
+		ft_putstr(g_winner_name);
+		ft_putstr(" (player ");
+		ft_putnbr(g_winner_id);
+		ft_putstr(")\n");
+	}
 }

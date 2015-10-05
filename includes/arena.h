@@ -119,6 +119,7 @@ int				convert_int_instruction(unsigned char *args, int size,
 									unsigned char *arena);
 int				convert_int(unsigned char *args, int size);
 
+void			ft_dump(unsigned char *arena, t_champdata *champ, t_cycle *cycle);
 
 t_champdata		*new_datachamp(t_champ *champ);
 
