@@ -90,7 +90,9 @@ void			launch_battle(int nbr_cycle, unsigned char *arena,
 		t_champdata *champ, t_cycle *cycle)
 {
 	t_champdata	*tmp;
+	int			i;
 
+	i = 0;
 	while (cycle->cycle_to_die > 0 && check_round(champ, cycle) && nbr_cycle != 0)
 	{
 		tmp = champ->next;
@@ -103,10 +105,13 @@ void			launch_battle(int nbr_cycle, unsigned char *arena,
 			{
 				cycle->cycle_to_die = cycle->cycle_to_die - CYCLE_DELTA;
 				cycle->nbr_live = 0;
+				i = 0;
 			}
 		}
 		nbr_cycle--;
 		cycle->current_cycle = cycle->current_cycle + 1;
+		if (++i >= MAX_CHECKS)
+			(cycle->cycle_to_die)--;
 	}
 	if (nbr_cycle == 0)
 		ft_dump(arena, champ, cycle);

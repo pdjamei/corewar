@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "machine.h"
 #include "arena.h"
 #include "libft.h"
@@ -33,12 +34,12 @@ int		exec_live(t_champdata *tmp, t_champdata *champ)
 		if (!tmp->father)
 		{
 			ft_putstr("Un processus dit que le joueur ");
+			g_winner_id = tmp->pid;
 			ft_putnbr(tmp->pid);
 			ft_putstr("(");
+			g_winner_name = ft_strdup(tmp->name);
 			ft_putstr(tmp->name);
 			ft_putstr(") est en vie.\n");
-			g_winner_id = tmp->pid;
-			g_winner_name = tmp->name;
 		}
 		tmp->cycle_to_die = 0;
 		return (1);

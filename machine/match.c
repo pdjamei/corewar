@@ -45,7 +45,7 @@ void				launch_match(int nbr_cycle, t_champ *champ)
 
 	g_pid = 5;
 	g_winner_id = 0;
-	g_winner_name = NULL;
+	g_winner_name = "Unknown";
 	arena = instal_arena();
 	cycle = init_cycle();
 	champdata = ready_champ_for_arena(champ);
