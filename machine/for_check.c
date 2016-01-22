@@ -51,7 +51,7 @@ unsigned char	*new_adress(unsigned char *next, unsigned char *arena)
 	return (new);
 }
 
-void			is_args(t_champdata *champ, unsigned char *arena)
+void			is_args(t_champd *champ, unsigned char *arena)
 {
 	int				i;
 	int				size;
@@ -62,12 +62,12 @@ void			is_args(t_champdata *champ, unsigned char *arena)
 	i = -1;
 	while (++i < size)
 	{
-		tmp = new_adress(champ->PC + 2 + i, arena);
+		tmp = new_adress(champ->pc + 2 + i, arena);
 		champ->cmd->args[i] = tmp[0];
 	}
 }
 
-void			is_args_type(t_champdata *tmp, char *args_type)
+void			is_args_type(t_champd *tmp, char *args_type)
 {
 	int	i;
 
@@ -87,7 +87,7 @@ void			is_args_type(t_champdata *tmp, char *args_type)
 	}
 }
 
-int				spec_func(t_champdata *tmp, unsigned char *arena)
+int				spec_func(t_champd *tmp, unsigned char *arena)
 {
 	unsigned char	*tmpa;
 
@@ -97,9 +97,9 @@ int				spec_func(t_champdata *tmp, unsigned char *arena)
 			|| tmp->cmd->funct == 15)
 	{
 		tmp->cmd->type_args[0] = 2;
-		tmpa = new_adress(tmp->PC + 1, arena);
+		tmpa = new_adress(tmp->pc + 1, arena);
 		tmp->cmd->args[0] = tmpa[0];
-		tmpa = new_adress(tmp->PC + 2, arena);
+		tmpa = new_adress(tmp->pc + 2, arena);
 		tmp->cmd->args[1] = tmpa[0];
 	}
 	else
@@ -107,15 +107,15 @@ int				spec_func(t_champdata *tmp, unsigned char *arena)
 	return (1);
 }
 
-void			instruct(t_champdata *tmp, unsigned char *arena)
+void			instruct(t_champd *tmp, unsigned char *arena)
 {
 	unsigned char	*tmpa;
 	char			args_type[8];
 
-	tmp->cmd->funct = tmp->PC[0];
+	tmp->cmd->funct = tmp->pc[0];
 	if (spec_func(tmp, arena))
 		return ;
-	tmpa = new_adress(tmp->PC + 1, arena);
+	tmpa = new_adress(tmp->pc + 1, arena);
 	convert_dectbin(tmpa[0], args_type);
 	is_args_type(tmp, args_type);
 	is_args(tmp, arena);

@@ -15,18 +15,18 @@
 #include "arena.h"
 #include "libft.h"
 
-void				put_content(t_champdata *champ)
+void				put_content(t_champd *champ)
 {
 	int				i;
 
 	i = -1;
 	while (++i < champ->parsing->size && i < MEM_SIZE)
-		champ->PC[i] = champ->parsing->code_content[i];
+		champ->pc[i] = champ->parsing->code_content[i];
 }
 
-int					sum_memchamp(t_champdata *champdata)
+int					sum_memchamp(t_champd *champdata)
 {
-	t_champdata		*tmp;
+	t_champd		*tmp;
 	int				ret;
 
 	tmp = champdata->next->next;
@@ -39,10 +39,10 @@ int					sum_memchamp(t_champdata *champdata)
 	return (ret);
 }
 
-int					nbr_champ(t_champdata *champdata)
+int					nbr_champ(t_champd *champdata)
 {
 	int				i;
-	t_champdata		*tmp;
+	t_champd		*tmp;
 
 	i = 0;
 	tmp = champdata->next;
@@ -54,9 +54,9 @@ int					nbr_champ(t_champdata *champdata)
 	return (i);
 }
 
-void				charge_champs(t_champdata *champdata, unsigned char *arena)
+void				charge_champs(t_champd *champdata, unsigned char *arena)
 {
-	t_champdata		*tmp;
+	t_champd		*tmp;
 	int				pos;
 	int				mem_left;
 	int				margin;
@@ -73,15 +73,15 @@ void				charge_champs(t_champdata *champdata, unsigned char *arena)
 	while (tmp != champdata)
 	{
 		pos = pos + margin + tmp->prev->parsing->size;
-		tmp->PC = &(arena[pos]);
+		tmp->pc = &(arena[pos]);
 		put_content(tmp);
 		tmp = tmp->next;
 	}
 }
 
-void				charge_param(t_champdata *champdata, unsigned char *arena)
+void				charge_param(t_champd *champdata, unsigned char *arena)
 {
-	champdata->next->PC = &(arena[0]);
+	champdata->next->pc = &(arena[0]);
 	put_content(champdata->next);
 	if (champdata->next->next != champdata)
 		charge_champs(champdata, arena);

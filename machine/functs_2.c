@@ -12,7 +12,7 @@
 
 #include "arena.h"
 
-void	and(unsigned char *arena, t_champdata *champ)
+void	and(unsigned char *arena, t_champd *champ)
 {
 	int	param_1;
 	int	param_2;
@@ -30,7 +30,7 @@ void	and(unsigned char *arena, t_champdata *champ)
 	champ->reg[param_3] = param_1 & param_2;
 }
 
-void	or (unsigned char *arena, t_champdata *champ)
+void	or(unsigned char *arena, t_champd *champ)
 {
 	int	param_1;
 	int	param_2;
@@ -48,7 +48,7 @@ void	or (unsigned char *arena, t_champdata *champ)
 	champ->reg[param_3] = param_1 | param_2;
 }
 
-void	xor(unsigned char *arena, t_champdata *champ)
+void	xor(unsigned char *arena, t_champd *champ)
 {
 	int	param_1;
 	int	param_2;
@@ -66,17 +66,17 @@ void	xor(unsigned char *arena, t_champdata *champ)
 	champ->reg[param_3] = param_1 ^ param_2;
 }
 
-void	jump(unsigned char *arena, t_champdata *champ)
+void	jump(unsigned char *arena, t_champd *champ)
 {
 	int		result;
 
 	if (champ->carry == 0)
 		return ;
 	result = convert_int(champ->cmd->args, champ->cmd->type_args[0]);
-	champ->PC = new_adress(champ->PC + result, arena);
+	champ->pc = new_adress(champ->pc + result, arena);
 }
 
-void	load_index(unsigned char *arena, t_champdata *champ)
+void	load_index(unsigned char *arena, t_champd *champ)
 {
 	int				param_1;
 	int				param_2;
@@ -91,10 +91,10 @@ void	load_index(unsigned char *arena, t_champdata *champ)
 		param_1 = champ->reg[gimme_reg_nbr(param_1)];
 	if (champ->cmd->type_args[1] == 1)
 		param_2 = champ->reg[gimme_reg_nbr(param_2)];
-	tmp = champ->PC + param_1 % IDX_MOD;
+	tmp = champ->pc + param_1 % IDX_MOD;
 	tmp = new_adress(tmp, arena);
 	value = convert_int_instruction(tmp, IND_SIZE, arena) + param_2;
-	tmp = champ->PC + value % IDX_MOD;
+	tmp = champ->pc + value % IDX_MOD;
 	tmp = new_adress(tmp, arena);
 	param_3 = gimme_reg_nbr(param_3);
 	value = convert_int_instruction(tmp, REG_SIZE, arena);

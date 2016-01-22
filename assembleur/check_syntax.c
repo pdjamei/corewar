@@ -35,9 +35,9 @@ int			check_syntax(t_line *lst)
 				else if (ret == 1)
 					l_curr = l_curr->next;
 			}
-			else if (t_curr->type == instruction &&\
-					check_instruction(t_curr) < 0)
-					return (-1);
+			else if (t_curr->type == instruction
+				&& check_instruction(t_curr) < 0)
+				return (-1);
 		}
 		l_curr = l_curr->next;
 	}

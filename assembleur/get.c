@@ -14,7 +14,7 @@
 #include <assembleur.h>
 #include <op.h>
 #include <stdlib.h>
-#define	I (*i)
+#define I (*i)
 
 extern t_op	g_op_tab[17];
 
@@ -74,20 +74,24 @@ int			get_true_addr(t_token *t_curr, t_sym last, int l_s)
 {
 	int		ret;
 
-	ret = t_curr->addr;
-	if (t_curr->type == label)
+	ret = 0;
+	if (t_curr)
 	{
-		if (last == indirect)
-			ret += 2;
-		else if (last == reg)
-			ret++;
-	}
-	else if (last == direct || last == direct_label)
-	{
-		if (l_s == 4)
-			ret += 4;
-		else
-			ret += 2;
+		ret = t_curr->addr;
+		if (t_curr->type == label)
+		{
+			if (last == indirect)
+				ret += 2;
+			else if (last == reg)
+				ret++;
+		}
+		else if (last == direct || last == direct_label)
+		{
+			if (l_s == 4)
+				ret += 4;
+			else
+				ret += 2;
+		}
 	}
 	return (ret);
 }

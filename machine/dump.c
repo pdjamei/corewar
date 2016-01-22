@@ -16,7 +16,7 @@
 #include "arena.h"
 #include "libft.h"
 
-static void		ft_puthex(unsigned char c)
+static void	ft_puthex(unsigned char c)
 {
 	if ((c / 16) < 10)
 		ft_putnbr(c / 16);
@@ -28,7 +28,7 @@ static void		ft_puthex(unsigned char c)
 		ft_putchar('A' + c % 16 - 10);
 }
 
-void			ft_dump(unsigned char *arena, t_champdata *champ, t_cycle *cycle)
+void		ft_dump(unsigned char *arena, t_champd *champ, t_cycle *cycle)
 {
 	int i;
 

@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char		*ft_strrev(char	*s)
+char		*ft_strrev(char *s)
 {
 	size_t		size;
 	char		*ret;

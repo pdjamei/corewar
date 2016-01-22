@@ -17,32 +17,34 @@
 #include <op.h>
 #include <assembleur.h>
 
+#define COM COMMENT_CMD_STRING
+
 extern t_op		g_op_tab[17];
 
 t_header		*fill_name_or_comment(t_header *header, int fd)
 {
 	char		*text;
-	char		*line;
+	char		*l;
 
-	line = NULL;
-	while (get_next_line(fd, &line))
+	l = NULL;
+	text = NULL;
+	while (get_next_line(fd, &l))
 	{
-		if (!ft_strncmp(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
+		if (!ft_strncmp(l, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
 		{
-			if (!(text = get_text(line, 0)))
-				return (ft_strdel(&line));
+			if (!(text = get_text(l, 0)))
+				return (ft_strdel(&l));
 			ft_strcpy(header->prog_name, text);
 			break ;
 		}
-		else if (!ft_strncmp(line, COMMENT_CMD_STRING,\
-					ft_strlen(COMMENT_CMD_STRING)))
+		else if (!ft_strncmp(l, COM, ft_strlen(COM)))
 		{
-			if (!(text = get_text(line, 1)))
-				return (ft_strdel(&line));
+			if (!(text = get_text(l, 1)))
+				return (ft_strdel(&l));
 			ft_strcpy(header->comment, text);
 			break ;
 		}
-		ft_strdel(&line);
+		ft_strdel(&l);
 	}
 	ft_strdel(&text);
 	return (header);

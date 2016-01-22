@@ -12,9 +12,9 @@
 
 #include "arena.h"
 
-void	live(unsigned char *arena, t_champdata *champ)
+void	live(unsigned char *arena, t_champd *champ)
 {
-	t_champdata	*tmp;
+	t_champd	*tmp;
 
 	(void)arena;
 	tmp = champ;
@@ -29,7 +29,7 @@ void	live(unsigned char *arena, t_champdata *champ)
 	}
 }
 
-void	load(unsigned char *arena, t_champdata *champ)
+void	load(unsigned char *arena, t_champd *champ)
 {
 	int	param_1;
 	int	param_2;
@@ -41,7 +41,7 @@ void	load(unsigned char *arena, t_champdata *champ)
 	champ->reg[param_2] = param_1;
 }
 
-void	store(unsigned char *arena, t_champdata *champ)
+void	store(unsigned char *arena, t_champd *champ)
 {
 	int	param_1;
 	int	param_2;
@@ -55,11 +55,11 @@ void	store(unsigned char *arena, t_champdata *champ)
 	else if (champ->cmd->type_args[1] == 2)
 	{
 		param_2 = convert_int(champ->cmd->args + champ->cmd->type_args[0], 2);
-		stock_convert_nbr(champ->PC + param_2, arena, param_1);
+		stock_convert_nbr(champ->pc + param_2, arena, param_1);
 	}
 }
 
-void	add(unsigned char *arena, t_champdata *champ)
+void	add(unsigned char *arena, t_champd *champ)
 {
 	int	param_1;
 	int	param_2;
@@ -75,7 +75,7 @@ void	add(unsigned char *arena, t_champdata *champ)
 	champ->reg[param_3] = param_1 + param_2;
 }
 
-void	sub(unsigned char *arena, t_champdata *champ)
+void	sub(unsigned char *arena, t_champd *champ)
 {
 	int	param_1;
 	int	param_2;

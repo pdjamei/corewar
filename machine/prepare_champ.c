@@ -18,9 +18,9 @@
 #include "arena.h"
 #include "libft.h"
 
-t_champdata			*add_data(t_champdata *champdata, t_champ *champ)
+t_champd			*add_data(t_champd *champdata, t_champ *champ)
 {
-	t_champdata		*new;
+	t_champd		*new;
 
 	if (!(new = new_datachamp(champ)))
 		return (champdata);
@@ -47,7 +47,7 @@ int					conv_init(unsigned char *args, int size)
 	return (result);
 }
 
-void				get_code(int fd, t_champdata *champdata)
+void				get_code(int fd, t_champd *champdata)
 {
 	int				i;
 	int				j;
@@ -70,7 +70,7 @@ void				get_code(int fd, t_champdata *champdata)
 		exit(-1);
 }
 
-void				get_content(t_champdata *champdata, t_champ *champ)
+void				get_content(t_champd *champdata, t_champ *champ)
 {
 	int				fd;
 	unsigned char	buff[READ_SIZE];
@@ -90,11 +90,11 @@ void				get_content(t_champdata *champdata, t_champ *champ)
 	close(fd);
 }
 
-t_champdata			*ready_champ_for_arena(t_champ *champ)
+t_champd			*ready_champ_for_arena(t_champ *champ)
 {
-	t_champdata		*champdata;
+	t_champd		*champdata;
 
-	if (!(champdata = (t_champdata *)malloc(sizeof(t_champdata))))
+	if (!(champdata = (t_champd *)malloc(sizeof(t_champd))))
 		return (NULL);
 	champdata->next = champdata;
 	champdata->prev = champdata;

@@ -21,7 +21,7 @@ int		gimme_reg_nbr(int reg)
 	return (reg);
 }
 
-int		gimme_param_value(t_champdata *champ, t_cmd *cmd,
+int		gimme_param_value(t_champd *champ, t_cmd *cmd,
 							int arg, unsigned char *arena)
 {
 	int				i;
@@ -40,17 +40,17 @@ int		gimme_param_value(t_champdata *champ, t_cmd *cmd,
 	{
 		i = convert_int(cmd->args + place, cmd->type_args[arg]);
 		if (cmd->funct > 12)
-			tmp = champ->PC + i;
+			tmp = champ->pc + i;
 		else
-			tmp = champ->PC + (i % IDX_MOD);
+			tmp = champ->pc + (i % IDX_MOD);
 		tmp = new_adress(tmp, arena);
 		return (convert_int_instruction(tmp, 4, arena));
 	}
 }
 
-void	add_elem(t_champdata *root)
+void	add_elem(t_champd *root)
 {
-	t_champdata	*new_elem;
+	t_champd	*new_elem;
 
 	new_elem = malloc(sizeof(*new_elem));
 	if (new_elem == NULL)

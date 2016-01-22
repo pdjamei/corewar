@@ -15,18 +15,18 @@
 #include "arena.h"
 #include "libft.h"
 
-void			check_inst(t_champdata *tmp, unsigned char *arena)
+void			check_inst(t_champd *tmp, unsigned char *arena)
 {
-	if (*tmp->PC > 0 && *tmp->PC < 17)
+	if (*tmp->pc > 0 && *tmp->pc < 17)
 	{
-		tmp->cycle = g_funct_tab[*tmp->PC - 1].cycles;
+		tmp->cycle = g_funct_tab[*tmp->pc - 1].cycles;
 		instruct(tmp, arena);
 	}
 	else
-		tmp->PC = new_adress(tmp->PC + 1, arena);
+		tmp->pc = new_adress(tmp->pc + 1, arena);
 }
 
-void			exec_inst(t_champdata *tmp, unsigned char *arena,
+void			exec_inst(t_champd *tmp, unsigned char *arena,
 		t_cycle *cycle)
 {
 	int			arg;
@@ -46,10 +46,10 @@ void			exec_inst(t_champdata *tmp, unsigned char *arena,
 		return ;
 	else if (tmp->cmd->funct == 1)
 		cycle->nbr_live++;
-	tmp->PC = new_adress(tmp->PC + arg, arena);
+	tmp->pc = new_adress(tmp->pc + arg, arena);
 }
 
-void			check_cycle(t_champdata	*tmp, unsigned char *arena, t_cycle
+void			check_cycle(t_champd *tmp, unsigned char *arena, t_cycle
 		*cycle)
 {
 	if (tmp->cycle == 0)
@@ -61,39 +61,29 @@ void			check_cycle(t_champdata	*tmp, unsigned char *arena, t_cycle
 	}
 }
 
-int				check_round(t_champdata *champ, t_cycle *cycle)
+static void		end(int nbr, unsigned char *arena, t_champd *champ,
+		t_cycle *cycle)
 {
-	int			i;
-	t_champdata	*tmp;
-
-	i = 0;
-	tmp = champ->next;
-	while (tmp != champ)
+	if (nbr == 0)
+		ft_dump(arena, champ, cycle);
+	else
 	{
-		if (tmp->cycle_to_die < cycle->cycle_to_die)
-		{
-			if (!tmp->father)
-				i++;
-			tmp = tmp->next;
-		}
-		else
-		{
-			remove_level(champ, tmp);
-			tmp = champ->next;
-			i = 0;
-		}
+		ft_putstr("Winner is : ");
+		ft_putstr(g_winner_name);
+		ft_putstr(" (player ");
+		ft_putnbr(g_winner_id);
+		ft_putstr(")\n");
 	}
-	return (i);
 }
 
-void			launch_battle(int nbr_cycle, unsigned char *arena,
-		t_champdata *champ, t_cycle *cycle)
+void			launch_battle(int nbr, unsigned char *arena,
+		t_champd *champ, t_cycle *cycle)
 {
-	t_champdata	*tmp;
+	t_champd	*tmp;
 	int			i;
 
 	i = 0;
-	while (cycle->cycle_to_die > 0 && check_round(champ, cycle) && nbr_cycle != 0)
+	while (cycle->cycle_to_die > 0 && check_round(champ, cycle) && nbr != 0)
 	{
 		tmp = champ->next;
 		while (tmp != champ)
@@ -108,19 +98,10 @@ void			launch_battle(int nbr_cycle, unsigned char *arena,
 				i = 0;
 			}
 		}
-		nbr_cycle--;
+		nbr--;
 		cycle->current_cycle = cycle->current_cycle + 1;
 		if (++i >= MAX_CHECKS)
 			(cycle->cycle_to_die)--;
 	}
-	if (nbr_cycle == 0)
-		ft_dump(arena, champ, cycle);
-	else
-	{
-		ft_putstr("Winner is : ");
-		ft_putstr(g_winner_name);
-		ft_putstr(" (player ");
-		ft_putnbr(g_winner_id);
-		ft_putstr(")\n");
-	}
+	end(nbr, arena, champ, cycle);
 }

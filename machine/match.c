@@ -19,9 +19,9 @@ unsigned char		*instal_arena(void)
 {
 	unsigned char	*arena;
 
-	if (!(arena = (unsigned char *)malloc(MEM_SIZE * sizeof(unsigned char))))
+	if (!(arena = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE)))
 		return (NULL);
-	ft_bzero(arena, MEM_SIZE * sizeof(unsigned char));
+	ft_bzero(arena, sizeof(unsigned char) * MEM_SIZE);
 	return (arena);
 }
 
@@ -41,7 +41,7 @@ void				launch_match(int nbr_cycle, t_champ *champ)
 {
 	unsigned char	*arena;
 	t_cycle			*cycle;
-	t_champdata		*champdata;
+	t_champd		*champdata;
 
 	g_pid = 5;
 	g_winner_id = 0;

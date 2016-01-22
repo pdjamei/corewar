@@ -14,6 +14,7 @@
 # define LIBFT_H
 
 # include <string.h>
+
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *s);
 char	*ft_strcpy(char *s1, const char *s2);

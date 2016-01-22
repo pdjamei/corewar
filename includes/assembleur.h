@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef		ASSEMBLEUR_H
-# define	ASSEMBLEUR_H
+#ifndef ASSEMBLEUR_H
+# define ASSEMBLEUR_H
 
 # include <op.h>
 # define HEAD_SIZE (10 + PROG_NAME_LENGTH + COMMENT_LENGTH)

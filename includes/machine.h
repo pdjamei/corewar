@@ -5,21 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pdjamei <pdjamei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/14 15:41:43 by pdjamei           #+#    #+#             */
-/*   Updated: 2014/06/15 19:52:30 by pdjamei          ###   ########.fr       */
+/*   Created: 2015/12/19 13:26:38 by pdjamei           #+#    #+#             */
+/*   Updated: 2015/12/19 13:29:02 by pdjamei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPE_H
-# define TYPE_H
+#ifndef MACHINE_H
 
-typedef struct      s_champ
+# define MACHINE_H
+
+typedef struct		s_champ
 {
-    char            *file;
-    int             nbr;
-    struct s_champ  *next;
-    struct s_champ  *prev;
-}                   t_champ;
+	char			*file;
+	int				nbr;
+	struct s_champ	*next;
+	struct s_champ	*prev;
+}					t_champ;
 
 void				ft_exit(t_champ *champ);
 

@@ -15,7 +15,7 @@
 #include "arena.h"
 #include "libft.h"
 
-void	aff(unsigned char *arena, t_champdata *champ)
+void	aff(unsigned char *arena, t_champd *champ)
 {
 	int	param_1;
 
@@ -24,10 +24,10 @@ void	aff(unsigned char *arena, t_champdata *champ)
 		param_1 = champ->reg[gimme_reg_nbr(param_1)];
 	param_1 = param_1 % 256;
 	param_1 = ABS(param_1);
-	// ft_putchar(param_1);
+	ft_putchar(param_1);
 }
 
-int		exec_live(t_champdata *tmp, t_champdata *champ)
+int		exec_live(t_champd *tmp, t_champd *champ)
 {
 	if (tmp->pid == champ->reg[0])
 	{

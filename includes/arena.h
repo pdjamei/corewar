@@ -45,82 +45,86 @@ typedef struct			s_parse
 	char				*code_content;
 }						t_parse;
 
-typedef struct			s_champdata
+typedef struct			s_champd
 {
 	unsigned int		father;
 	unsigned int		pid;
 	int					carry;
 	char				*name;
 	char				*comment;
-	unsigned char		*PC;
+	unsigned char		*pc;
 	unsigned int		reg[REG_NUMBER];
 	int					cycle;
 	int					cycle_to_die;
 	t_cmd				*cmd;
 	t_parse				*parsing;
-	struct s_champdata	*next;
-	struct s_champdata	*prev;
-}						t_champdata;
+	struct s_champd		*next;
+	struct s_champd		*prev;
+}						t_champd;
 
 typedef struct			s_tab
 {
 	int					cycles;
-	void				(*function)(unsigned char *, t_champdata *);
+	void				(*function)(unsigned char *, t_champd *);
 }						t_tab;
 
-extern t_tab	g_funct_tab[16];
-int				g_pid;
-int				g_winner_id;
-char			*g_winner_name;
+extern t_tab			g_funct_tab[16];
+int						g_pid;
+int						g_winner_id;
+char					*g_winner_name;
 
-int				spec_func(t_champdata*tmp, unsigned char *arena);
+int						spec_func(t_champd*tmp, unsigned char *arena);
 
-void			convert_dectbin(int c, char *args_type);
+void					convert_dectbin(int c, char *args_type);
 
-void			instruct(t_champdata *tmp, unsigned char *arena);
-unsigned char	*new_adress(unsigned char *PC, unsigned char *arena);
+void					instruct(t_champd *tmp, unsigned char *arena);
+unsigned char			*new_adress(unsigned char *pc, unsigned char *arena);
 
-void			remove_level(t_champdata *champ, t_champdata *tmp);
+void					remove_level(t_champd *champ, t_champd *tmp);
 
-void			live(unsigned char *arena, t_champdata *champ);
-void			load(unsigned char *arena, t_champdata *champ);
-void			store(unsigned char *arena, t_champdata *champ);
-void			add(unsigned char *arena, t_champdata *champ);
-void			sub(unsigned char *arena, t_champdata *champ);
-void			and(unsigned char *arena, t_champdata *champ);
-void			or(unsigned char *arena, t_champdata *champ);
-void			xor(unsigned char *arena, t_champdata *champ);
-void			jump(unsigned char *arena, t_champdata *champ);
-void			load_index(unsigned char *arena, t_champdata *champ);
-void			store_index(unsigned char *arena, t_champdata *champ);
-void			fork_corewar(unsigned char *arena, t_champdata *champ);
-void			long_load(unsigned char *arena, t_champdata *champ);
-void			long_load_index(unsigned char *arena, t_champdata *champ);
-void			long_fork(unsigned char *arena, t_champdata *champ);
-void			aff(unsigned char *arena, t_champdata *champ);
+void					live(unsigned char *arena, t_champd *champ);
+void					load(unsigned char *arena, t_champd *champ);
+void					store(unsigned char *arena, t_champd *champ);
+void					add(unsigned char *arena, t_champd *champ);
+void					sub(unsigned char *arena, t_champd *champ);
+void					and(unsigned char *arena, t_champd *champ);
+void					or(unsigned char *arena, t_champd *champ);
+void					xor(unsigned char *arena, t_champd *champ);
+void					jump(unsigned char *arena, t_champd *champ);
+void					load_index(unsigned char *arena, t_champd *champ);
+void					store_index(unsigned char *arena, t_champd *champ);
+void					fork_corewar(unsigned char *arena, t_champd *champ);
+void					long_load(unsigned char *arena, t_champd *champ);
+void					long_load_index(unsigned char *arena,
+						t_champd *champ);
+void					long_fork(unsigned char *arena, t_champd *champ);
+void					aff(unsigned char *arena, t_champd *champ);
 
-t_champdata		*ready_champ_for_arena(t_champ *champ);
-void			charge_param(t_champdata *champdata, unsigned char *arena);
-void			launch_battle(int nbr_cycle, unsigned char *arena,
-								t_champdata *champdata, t_cycle *cycle);
+int						check_round(t_champd *champ, t_cycle *cycle);
+t_champd				*ready_champ_for_arena(t_champ *champ);
+void					charge_param(t_champd *champdata,
+						unsigned char *arena);
+void					launch_battle(int nbr_cycle, unsigned char *arena,
+								t_champd *champdata, t_cycle *cycle);
 
-int				negative_convert_int_instruction(unsigned char *args, int size,
-		unsigned char *arena);
-int				negative_convert_int(unsigned char *args, int size);
+int						negative_convert_int_instruction(unsigned char *args,
+						int size, unsigned char *arena);
+int						negative_convert_int(unsigned char *args, int size);
 
-int				gimme_reg_nbr(int reg);
-int				gimme_param_value(t_champdata *champ, t_cmd *cmd, int arg,
-		unsigned char *arena);
-void			add_elem(t_champdata *root);
-int				exec_live(t_champdata *tmp, t_champdata *champ);
-void			stock_convert_nbr(unsigned char *tmp, unsigned char *arena,
-								int value);
-int				convert_int_instruction(unsigned char *args, int size,
+int						gimme_reg_nbr(int reg);
+int						gimme_param_value(t_champd *champ, t_cmd *cmd,
+						int arg, unsigned char *arena);
+void					add_elem(t_champd *root);
+int						exec_live(t_champd *tmp, t_champd *champ);
+void					stock_convert_nbr(unsigned char *tmp,
+						unsigned char *arena, int value);
+int						convert_int_instruction(unsigned char *args, int size,
 									unsigned char *arena);
-int				convert_int(unsigned char *args, int size);
+int						convert_int(unsigned char *args, int size);
 
-void			ft_dump(unsigned char *arena, t_champdata *champ, t_cycle *cycle);
+void					ft_dump(unsigned char *arena, t_champd *champ,
+						t_cycle *cycle);
 
-t_champdata		*new_datachamp(t_champ *champ);
+t_champd				*new_datachamp(t_champ *champ);
 
 #endif

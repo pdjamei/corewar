@@ -14,7 +14,7 @@
 #include "machine.h"
 #include "arena.h"
 
-void	store_index(unsigned char *arena, t_champdata *champ)
+void	store_index(unsigned char *arena, t_champd *champ)
 {
 	int				param_1;
 	int				param_2;
@@ -29,12 +29,12 @@ void	store_index(unsigned char *arena, t_champdata *champ)
 		param_2 = champ->reg[gimme_reg_nbr(param_2)];
 	if (champ->cmd->type_args[2] == 1)
 		param_3 = champ->reg[gimme_reg_nbr(param_3)];
-	tmp = champ->PC + (param_2 + param_3) % IDX_MOD;
+	tmp = champ->pc + (param_2 + param_3) % IDX_MOD;
 	tmp = new_adress(tmp, arena);
 	stock_convert_nbr(tmp, arena, param_1);
 }
 
-void	fork_corewar(unsigned char *arena, t_champdata *champ)
+void	fork_corewar(unsigned char *arena, t_champd *champ)
 {
 	int	i;
 	int	param_1;
@@ -44,7 +44,7 @@ void	fork_corewar(unsigned char *arena, t_champdata *champ)
 		return ;
 	param_1 = convert_int(champ->cmd->args, 2) % IDX_MOD;
 	add_elem(champ);
-	champ->prev->PC = new_adress(champ->PC + param_1, arena);
+	champ->prev->pc = new_adress(champ->pc + param_1, arena);
 	champ->prev->reg[0] = g_pid;
 	champ->prev->pid = g_pid++;
 	while (++i < REG_NUMBER)
@@ -61,7 +61,7 @@ void	fork_corewar(unsigned char *arena, t_champdata *champ)
 	champ->prev->cmd->type_args[2] = 0;
 }
 
-void	long_load(unsigned char *arena, t_champdata *champ)
+void	long_load(unsigned char *arena, t_champd *champ)
 {
 	int	param_1;
 	int	param_2;
@@ -73,7 +73,7 @@ void	long_load(unsigned char *arena, t_champdata *champ)
 	champ->reg[param_2] = param_1;
 }
 
-void	long_load_index(unsigned char *arena, t_champdata *champ)
+void	long_load_index(unsigned char *arena, t_champd *champ)
 {
 	int				param_1;
 	int				param_2;
@@ -88,10 +88,10 @@ void	long_load_index(unsigned char *arena, t_champdata *champ)
 		param_1 = champ->reg[gimme_reg_nbr(param_1)];
 	if (champ->cmd->type_args[1] == 1)
 		param_2 = champ->reg[gimme_reg_nbr(param_2)];
-	tmp = champ->PC + param_1;
+	tmp = champ->pc + param_1;
 	tmp = new_adress(tmp, arena);
 	value = convert_int_instruction(tmp, IND_SIZE, arena) + param_2;
-	tmp = champ->PC + value;
+	tmp = champ->pc + value;
 	tmp = new_adress(tmp, arena);
 	param_3 = gimme_reg_nbr(param_3);
 	value = convert_int_instruction(tmp, REG_SIZE, arena);
@@ -99,7 +99,7 @@ void	long_load_index(unsigned char *arena, t_champdata *champ)
 	champ->reg[param_3] = value;
 }
 
-void	long_fork(unsigned char *arena, t_champdata *champ)
+void	long_fork(unsigned char *arena, t_champd *champ)
 {
 	int	i;
 	int	param_1;
@@ -108,7 +108,7 @@ void	long_fork(unsigned char *arena, t_champdata *champ)
 	param_1 = convert_int(champ->cmd->args, 2);
 	champ->carry = param_1 ? 0 : 1;
 	add_elem(champ);
-	champ->prev->PC = new_adress(champ->PC + param_1, arena);
+	champ->prev->pc = new_adress(champ->pc + param_1, arena);
 	champ->prev->reg[0] = g_pid;
 	champ->prev->pid = g_pid++;
 	while (++i < REG_NUMBER)

@@ -16,36 +16,36 @@
 #include "libft.h"
 #include "arena.h"
 
-t_champdata			*new_datachamp(t_champ *champ)
+t_champd		*new_datachamp(t_champ *champ)
 {
-	t_champdata		*new;
-	
-	if (!(new = (t_champdata *)malloc(sizeof(t_champdata))))
+	t_champd	*n;
+
+	if (!(n = (t_champd *)malloc(sizeof(t_champd))))
 		return (NULL);
-	new->father = 0;
-	new->pid = champ->nbr;
-	new->carry = 0;
-	new->PC = 0;
-	ft_bzero(new->reg, REG_NUMBER * sizeof(unsigned int));
-	new->reg[0] = champ->nbr;
-	new->cycle = 0;
-	new->cycle_to_die = 0;
-	new->cmd = (t_cmd *)malloc(sizeof(t_cmd));
-	new->parsing = (t_parse *)malloc(sizeof(t_parse));
-	new->parsing->code_content = (char *)malloc(MEM_SIZE);
-	if (!new->cmd || !new->parsing->code_content)
+	n->father = 0;
+	n->pid = champ->nbr;
+	n->carry = 0;
+	n->pc = 0;
+	ft_bzero(n->reg, sizeof(unsigned int) * REG_NUMBER);
+	n->reg[0] = champ->nbr;
+	n->cycle = 0;
+	n->cycle_to_die = 0;
+	n->cmd = (t_cmd *)malloc(sizeof(t_cmd));
+	n->parsing = (t_parse *)malloc(sizeof(t_parse));
+	n->parsing->code_content = (char *)malloc(MEM_SIZE);
+	if (!n->cmd || !n->parsing->code_content)
 		return (NULL);
-	new->cmd->type_args[0] = 0;
-	new->cmd->type_args[1] = 0;
-	new->cmd->type_args[2] = 0;
-	new->next = new;
-	new->prev = new;
-	return (new);
+	n->cmd->type_args[0] = 0;
+	n->cmd->type_args[1] = 0;
+	n->cmd->type_args[2] = 0;
+	n->next = n;
+	n->prev = n;
+	return (n);
 }
 
-int			ft_ischamp(char *s)
+int				ft_ischamp(char *s)
 {
-	int		len;
+	int			len;
 
 	if (access(s, F_OK) == 0 && access(s, R_OK) == 0)
 	{
@@ -57,9 +57,9 @@ int			ft_ischamp(char *s)
 	return (0);
 }
 
-t_champ		*new_champ(char *s, int n)
+t_champ			*new_champ(char *s, int n)
 {
-	t_champ	*champ;
+	t_champ		*champ;
 
 	if (!(champ = (t_champ *)malloc(sizeof(t_champ))))
 		return (NULL);
@@ -70,9 +70,9 @@ t_champ		*new_champ(char *s, int n)
 	return (champ);
 }
 
-t_champ		*add_champ(t_champ *champ, char *s, int n)
+t_champ			*add_champ(t_champ *champ, char *s, int n)
 {
-	t_champ	*tmp;
+	t_champ		*tmp;
 
 	if (champ == NULL)
 		return (new_champ(s, n));
@@ -86,10 +86,10 @@ t_champ		*add_champ(t_champ *champ, char *s, int n)
 	return (champ);
 }
 
-t_champ		*champ_list(t_champ *champ, char **av, int ac, int nbr_champ)
+t_champ			*champ_list(t_champ *champ, char **av, int ac, int nbr_champ)
 {
-	int		i;
-	int		number;
+	int			i;
+	int			number;
 
 	number = -1;
 	i = -1;

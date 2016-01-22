@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include "arena.h"
 
-void	remove_champ(t_champdata *champ)
+void	remove_champ(t_champd *champ)
 {
 	if (champ)
 	{
@@ -36,9 +36,9 @@ void	remove_champ(t_champdata *champ)
 	}
 }
 
-void	remove_level(t_champdata *champ, t_champdata *tmp)
+void	remove_level(t_champd *champ, t_champd *tmp)
 {
-	t_champdata	*tmp2;
+	t_champd	*tmp2;
 
 	tmp2 = champ;
 	while (tmp2 != champ->prev)
@@ -50,4 +50,29 @@ void	remove_level(t_champdata *champ, t_champdata *tmp)
 	if (tmp2->prev != tmp && tmp2->prev && tmp2->prev->father == tmp->pid)
 		remove_level(champ, tmp2->prev);
 	remove_champ(tmp);
+}
+
+int		check_round(t_champd *champ, t_cycle *cycle)
+{
+	int			i;
+	t_champd	*tmp;
+
+	i = 0;
+	tmp = champ->next;
+	while (tmp != champ)
+	{
+		if (tmp->cycle_to_die < cycle->cycle_to_die)
+		{
+			if (!tmp->father)
+				i++;
+			tmp = tmp->next;
+		}
+		else
+		{
+			remove_level(champ, tmp);
+			tmp = champ->next;
+			i = 0;
+		}
+	}
+	return (i);
 }
